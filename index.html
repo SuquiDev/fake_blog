@@ -17,6 +17,14 @@
         <h1 class="my-5">Fake blog</h1>
     </div>
     <main class="container">
+        <article id="single-blog" class="d-none">
+            <h2 id="single-blog__title"></h2>
+            <div id="single-blog__content"></div>
+            <p>
+                <button id="boton-volver" class="btn btn-primary">Volver</button>
+            </p>
+            <div class="single blog__comments"></div>
+        </article>
     <!--    Listado de artículos    -->
         <div id="listado-articulos" class="row row-cols-1 row-cols-md-3 g-4"></div>
         <!-- Un elemento que vamos a vigilar. Si es visible, aumentaremos la "paginaActual" -->
@@ -27,21 +35,43 @@
     <!--  Card de articulo  -->
     <template id="previa-articulo">
         <div class="col">
-            <div class="card border-light card h-100">
-                <div class="card-body">
+            <div class="card border-light card ">
+                <div class="card-body h-100">
                     <h5 id="titulo" class="card-title"></h5>
                     <p id="resumen" class="card-text"></p>
+                    <p>
+                        <button id="boton-ver" class="btn btn-primary">Ver</button>
+                    </p>
                 </div>
             </div>
         </div>
     </template>
     <!--  Loading  -->
-    <template id="loading">
-        <div class="d-flex justify-content-center align-items-center w-100" style="min-height: 20rem; transform: scale(3) ">
+        <div  id="loading"
+                class="
+                position-fixed
+                top-0
+                start-0
+                end-0
+                bottom-0
+                d-flex
+                justify-content-center
+                align-items-center
+                vw-100
+                vh-100
+                d-none
+                "
+                style="min-height: 20rem; transform: scale(3); backdrop-filter:blur(20px) ">
             <div class="spinner-border text-dark" role="status">
                 <span class="visually-hidden">Cargando artículos...</span>
             </div>
         </div>
+    <template id="plantillaComentario">
+        <article class="comentario">
+            <h3 id="comment__title"></h3>
+            <a id="comment__email"></a>
+            <p id="comment__body"></p>
+        </article>
     </template>
 
 </body>

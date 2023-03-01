@@ -1,4 +1,6 @@
+:root{
 
+}
 
 body{
     background-color: #8EC5FC;
@@ -8,6 +10,7 @@ body{
 
 .card{
     background-color: #dc9bffa1;
+    min-height: 100%;
 }
 
 .card-title{
@@ -18,3 +21,20 @@ body{
     height: 65%;
 }
 
+.card-body {
+    flex: 1 1 auto;
+    padding: var(--bs-card-spacer-y) var(--bs-card-spacer-x);
+    color: var(--bs-card-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+
+.btn-primary{
+    --bs-btn-bg: #a411ff;
+    --bs-btn-border-color: white;
+    --bs-btn-hover-border-color: #7200b9;
+    --bs-btn-hover-bg: #7200b9;
+    --bs-btn-active-bg: #7200b9;
+}
