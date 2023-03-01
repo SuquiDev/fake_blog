@@ -3,13 +3,15 @@
 const listadoArticulosDOM = document.querySelector("#listado-articulos");
 const templatePreviaArticulo = document.querySelector("#previa-articulo").content.firstElementChild;
 const loadingDOM = document.querySelector("#loading");
-const miPlantillaComentario = document.querySelector("#plantillaComentario").content.firstElementChild;
 const marcadorDOM = document.querySelector("#marcador");
 // - Single
 const singleDOM = document.querySelector("#single-blog");
 const singleTitleDOM = document.querySelector("#single-blog__title");
 const singleContentDOM = document.querySelector("#single-blog__content");
 const botonVolverDOM = document.querySelector("#boton-volver");
+const miPlantillaComentario = document.querySelector("#plantillaComentario").content.firstElementChild;
+const singleCommentsListadoDOM = document.querySelector("#single-blog__comments");
+let comments = new Array();
 // - Data
 let articulos = new Array();
 // 2 estados: "listado articulos" y "single articulo"
@@ -68,7 +70,6 @@ async function obtenerArticulos(){
     const corteInicio = (paginaActual - 1 ) * numeroArticulosPorPagina;
     const corteFinal = corteInicio + numeroArticulosPorPagina;
     const miURL= generarURLBusqueda(corteInicio, numeroArticulosPorPagina);
-    console.log(miURL);
 
     // Realiza la petición
     const miFetch = await fetch(miURL);
@@ -171,6 +172,29 @@ async function obtenerSingleArticulo(id){
     const json = await miFetch.json();
     singleTitleDOM.textContent = json.title;
     singleContentDOM.textContent = json.body;
+    // Obtener comentarios
+    const miFetchComments = await fetch(`${urlAPI}${id}/comments`);
+    comments = await miFetchComments.json();
+    singleCommentsListadoDOM.innerHTML ="";
+    comments.forEach(function (comentario){
+        // Clonamos nuestra plantila
+        const miComentario = miPlantillaComentario.cloneNode(true);
+        // Obtenemis el nombre del comentario
+        const miComentarioNombre = miComentario.querySelector("#comment__title");
+        // Cambiamos el nombre
+        miComentarioNombre.textContent = comentario.name;
+        // Obtenemis el email del comentario
+        const miComentarioEmail = miComentario.querySelector("#comment__email");
+        // Cambiamos el mail
+        miComentarioEmail.textContent = comentario.email;
+        // Obtenemis el cuerpo del comentario
+        const miComentarioCuerpo = miComentario.querySelector("#comment__body");
+        // Cambiamos el cuerpo
+        miComentarioCuerpo.textContent = `"${comentario.body}"`;
+
+        // Pintamos
+        singleCommentsListadoDOM.appendChild(miComentario);
+    });
     // Al terminar quitar el loading
     // Volver estado inicial
     cambiarEstado("single articulo");
